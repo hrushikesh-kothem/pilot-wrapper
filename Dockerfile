@@ -80,8 +80,15 @@ COPY ${WRAPPER_NAME} .
 RUN chmod +x ${WRAPPER_NAME}
 
 # download and extract pilot tarball
-RUN wget -O pilot3.tar.gz https://github.com/PanDAWMS/pilot3/archive/refs/tags/${PILOT_VERSION}.tar.gz && \
-    tar xvfz pilot3.tar.gz && rm -f pilot3.tar.gz && mv pilot3-* pilot3
+# RUN wget -O pilot3.tar.gz https://github.com/PanDAWMS/pilot3/archive/refs/tags/${PILOT_VERSION}.tar.gz && \
+#     tar xvfz pilot3.tar.gz && rm -f pilot3.tar.gz && mv pilot3-* pilot3
+
+# download pilot3 from fork (master-k8s branch, shallow clone for latest commit)
+#ARG CACHEBUST=0
+RUN git clone --branch k8s_native_pilot --depth 1 https://github.com/hrushikesh-kothem/pilot3.git pilot3
+
+# install kubernetes python client (k8s-native feature)
+RUN /opt/pilot/bin/pip install --no-cache-dir kubernetes
 
 # create entrypoint script
 RUN echo '#!/bin/bash' > entrypoint.sh && \
