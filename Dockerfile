@@ -22,7 +22,8 @@ RUN dnf install -y \
         nordugrid-arc-plugins-globus \
         nordugrid-arc-plugins-s3 \
         nordugrid-arc-plugins-xrootd \
-        xrootd-client
+        xrootd-client \
+        git
 
 # install other dependencies mainly for building Python and Boost
 RUN dnf install -y gcc make voms-clients apptainer wget openssl-devel bzip2-devel libffi-devel zlib-devel \
