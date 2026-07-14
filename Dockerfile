@@ -85,7 +85,7 @@ RUN chmod +x ${WRAPPER_NAME}
 #     tar xvfz pilot3.tar.gz && rm -f pilot3.tar.gz && mv pilot3-* pilot3
 
 # download pilot3 from fork (master-k8s branch, shallow clone for latest commit)
-#ARG CACHEBUST=0
+ADD https://api.github.com/repos/hrushikesh-kothem/pilot3/commits/k8s_native_pilot /tmp/cachebust
 RUN git clone --branch k8s_native_pilot --depth 1 https://github.com/hrushikesh-kothem/pilot3.git pilot3
 
 # install kubernetes python client (k8s-native feature)
